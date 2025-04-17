@@ -6,6 +6,7 @@ import "./App.css";
 function App() {
   const [showReasons, setShowReasons] = useState(false);
   const [showSurprise, setShowSurprise] = useState(false);
+  const [giftOpened, setGiftOpened] = useState(false);
 
   const reasons = [
     "You're my favorite notification 💌",
@@ -42,6 +43,27 @@ function App() {
             Surprise Me 🎁
           </button>
         </div>
+        <div className="gift-box-container">
+  <motion.div
+    className={`gift-box ${giftOpened ? "open" : ""}`}
+    onClick={() => setGiftOpened(true)}
+    whileHover={{ scale: 1.1 }}
+    transition={{ type: "spring", stiffness: 300 }}
+  >
+    🎁
+  </motion.div>
+
+  {giftOpened && (
+    <motion.div
+      className="gift-message"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      🌟 You’re the most special gift of my life 💝
+    </motion.div>
+  )}
+</div>
 
         <AnimatePresence>
           {showReasons && (
@@ -79,6 +101,14 @@ function App() {
           )}
         </AnimatePresence>
       </motion.div>
+
+      <div className="floating-hearts">
+  {Array.from({ length: 15 }).map((_, i) => (
+    <span key={i} className="heart" style={{ "--i": Math.random() }} >💖</span>
+
+  ))}
+</div>
+
     </div>
   );
 }
